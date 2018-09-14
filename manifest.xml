@@ -123,7 +123,6 @@
             <instance>default</instance>
         </interface>
     </hal>
-<!--
     <hal format="hidl">
         <name>android.hardware.ir</name>
         <transport>hwbinder</transport>
@@ -133,7 +132,6 @@
             <instance>default</instance>
         </interface>
     </hal>
--->
     <hal format="hidl">
         <name>android.hardware.keymaster</name>
         <transport>hwbinder</transport>
