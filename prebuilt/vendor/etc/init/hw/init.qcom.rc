@@ -449,6 +449,12 @@ on boot
     chown system system /mnt/vendor/persist/qc_senseid/bg_estimation/bg_small2_basis.dat
     chown system system /mnt/vendor/persist/qc_senseid/bg_estimation/bg_small2_off_basis.dat
 
+    #Quickset IR
+    chmod 0666 /sys/remote/enable
+    chmod 666 /dev/remote/name
+    chmod 666 /sys/remote/enable
+    chmod 666 /dev/ttyHSL1
+
     # Don't reset entire SoC on individual subsystem crash
     write /sys/bus/msm_subsys/devices/subsys0/restart_level "related"
     write /sys/bus/msm_subsys/devices/subsys1/restart_level "related"
