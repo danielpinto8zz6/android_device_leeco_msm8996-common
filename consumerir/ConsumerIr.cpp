@@ -22,6 +22,7 @@
 
 #include "ConsumerIr.h"
 #include <iostream>
+#include <thread>
 #include <unistd.h>
 #include <vector>
 
@@ -38,6 +39,10 @@ static hidl_vec<ConsumerIrFreqRange> rangeVec{
     {.min = 36000, .max = 36000}, {.min = 38000, .max = 38000},
     {.min = 40000, .max = 40000}, {.min = 56000, .max = 56000},
 };
+
+void ConsumerIr::transmitTask(std::string cmd) {
+  execl("/system/bin/sh", "sh", "-c", cmd, (char *)NULL);
+}
 
 // Methods from ::android::hardware::ir::V1_0::IConsumerIr follow.
 Return<bool> ConsumerIr::transmit(int32_t carrierFreq,
@@ -59,13 +64,8 @@ Return<bool> ConsumerIr::transmit(int32_t carrierFreq,
 
     LOG(INFO) << ss.str().c_str();
 
-    // std::system(ss.str().c_str());
-    // execl("/system/bin/sh", "sh", "-c", ss.str().c_str(), (char *)NULL);
-     if (!(getpid() = fork()) {
-      int fd = open("/dev/ttyS0", O_WRONLY);
-      dup2(fd, 1); // redirect stdout
-      execl("/system/bin/sh", "sh", "-c", ss.str().c_str(), (char *)NULL);
-    }
+    std::thread t1(transmitTask, ss.str().c_str());
+    t1.join();
 
     return true;
   }
